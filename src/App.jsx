@@ -1,7 +1,6 @@
-import { lazy, Suspense, useCallback, useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { MotionConfig } from 'framer-motion'
 
-import Preloader from './components/Preloader'
 import Cursor from './components/Cursor'
 import ScrollProgress from './components/ScrollProgress'
 import Nav from './components/Nav'
@@ -14,34 +13,81 @@ import { useLenis } from './hooks/useLenis'
 import content from './data/content.json'
 
 /*
- * Everything below the first screen loads on demand.
+ * Sections below the fold are split into their own chunks AND their own
+ * Suspense boundaries.
  *
- * These sections are ~60% of the page's components but a first-time visitor
- * never sees them without scrolling. Splitting them keeps the initial parse
- * and execute small, which is what makes the page feel fast to open.
+ * The earlier version wrapped all ten lazy() components in a single
+ * <Suspense>. React has to resolve every child of a boundary before it
+ * renders any of them, so all ten chunks were fetched, parsed and mounted
+ * during first paint — 16 JS requests and 2.5s of main-thread long tasks.
+ * The code-splitting was doing nothing except adding requests.
  *
- * `About` stays eager — it sits directly under the hero and is the first
- * thing read after the headline.
+ * LazySection loads each chunk only once it is within `rootMargin` of the
+ * viewport, so the browser is never doing ten chunks of work at once.
  */
-const About = lazy(() => import('./components/About'))
-const Strengths = lazy(() => import('./components/Strengths'))
-const Skills = lazy(() => import('./components/Skills'))
-const Experience = lazy(() => import('./components/Experience'))
-const Projects = lazy(() => import('./components/Projects'))
-const Roles = lazy(() => import('./components/Roles'))
-const AI = lazy(() => import('./components/AI'))
-const Recommendations = lazy(() => import('./components/Recommendations'))
-const Education = lazy(() => import('./components/Education'))
-const Contact = lazy(() => import('./components/Contact'))
+const SECTIONS = [
+  { id: 'about', loader: () => import('./components/About'), h: '62vh' },
+  { id: 'strengths', loader: () => import('./components/Strengths'), h: '78vh' },
+  { id: 'skills', loader: () => import('./components/Skills'), h: '58vh' },
+  { id: 'experience', loader: () => import('./components/Experience'), h: '84vh' },
+  { id: 'projects', loader: () => import('./components/Projects'), h: '82vh' },
+  { id: 'roles', loader: () => import('./components/Roles'), h: '70vh' },
+  { id: 'ai', loader: () => import('./components/AI'), h: '80vh' },
+  {
+    id: 'recommendations',
+    loader: () => import('./components/Recommendations'),
+    h: '62vh',
+  },
+  { id: 'education', loader: () => import('./components/Education'), h: '54vh' },
+  { id: 'contact', loader: () => import('./components/Contact'), h: '92vh' },
+]
 
-/** Reserves height so lazy chunks arriving later don't shift the page. */
-function Placeholder({ h = '70vh' }) {
-  return <div style={{ minHeight: h }} aria-hidden="true" />
+/**
+ * Loads `loader()` when the placeholder scrolls near the viewport, then
+ * renders the component. Reserves height meanwhile so arriving chunks
+ * don't shove the page around under the reader.
+ */
+function LazySection({ loader, minHeight }) {
+  const ref = useRef(null)
+  const [Comp, setComp] = useState(null)
+
+  useEffect(() => {
+    if (Comp) return
+    const el = ref.current
+    if (!el) return
+
+    // No IntersectionObserver (very old browser) — just load it.
+    if (typeof IntersectionObserver === 'undefined') {
+      loader().then((m) => setComp(() => m.default))
+      return
+    }
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((e) => e.isIntersecting)) return
+        io.disconnect()
+        loader().then((m) => setComp(() => m.default))
+      },
+      // start fetching a little before it scrolls into view
+      { rootMargin: '600px 0px' },
+    )
+
+    io.observe(el)
+    return () => io.disconnect()
+  }, [loader, Comp])
+
+  return (
+    <div ref={ref} style={Comp ? undefined : { minHeight }}>
+      {Comp ? (
+        <Comp />
+      ) : (
+        <div aria-hidden="true" style={{ minHeight }} />
+      )}
+    </div>
+  )
 }
 
 export default function App() {
-  const [loaded, setLoaded] = useState(false)
-
   // smooth scrolling only when the user hasn't asked for less motion
   const prefersReduced =
     typeof window !== 'undefined' &&
@@ -62,12 +108,8 @@ export default function App() {
     document.title = `${content.personal.name} — Cyber Security Analyst · Python Developer`
   }, [])
 
-  const onPreloaderDone = useCallback(() => setLoaded(true), [])
-
   return (
     <MotionConfig reducedMotion="user">
-      <Preloader onDone={onPreloaderDone} name={content.personal.name} />
-
       <ScrollProgress />
       <Cursor />
       <ToTop />
@@ -81,26 +123,19 @@ export default function App() {
 
       <Nav />
 
-      <main
-        id="main"
-        className="transition-opacity duration-500"
-        style={{ opacity: loaded ? 1 : 0 }}
-      >
+      {/*
+        No preloader. It held the first paint back by ~670ms to play a
+        loading animation, which pushed First Contentful Paint to 1164ms
+        for decoration. Content renders immediately now and the entrance
+        animations still give it life.
+      */}
+      <main id="main">
         <Hero />
         <Marquee />
 
-        <Suspense fallback={<Placeholder />}>
-          <About />
-          <Strengths />
-          <Skills />
-          <Experience />
-          <Projects />
-          <Roles />
-          <AI />
-          <Recommendations />
-          <Education />
-          <Contact />
-        </Suspense>
+        {SECTIONS.map(({ id, loader, h }) => (
+          <LazySection key={id} loader={loader} minHeight={h} />
+        ))}
       </main>
 
       <Footer />

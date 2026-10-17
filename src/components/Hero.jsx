@@ -69,7 +69,7 @@ export function Hero() {
               className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-[var(--accent-line)] bg-[var(--accent-soft)] px-4 py-1.5"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.35, duration: 0.6, ease: EASE }}
+              transition={{ delay: 0.08, duration: 0.55, ease: EASE }}
             >
               <span className="relative flex h-2 w-2">
                 <span className="animate-pulse-ring absolute inline-flex h-full w-full rounded-full bg-[var(--accent)]" />
@@ -90,8 +90,8 @@ export function Hero() {
                         initial={{ y: '112%', opacity: 0 }}
                         animate={{ y: '0%', opacity: 1 }}
                         transition={{
-                          delay: 0.5 + (li * 2 + si) * 0.09,
-                          duration: 0.85,
+                          delay: 0.14 + (li * 2 + si) * 0.055,
+                          duration: 0.7,
                           ease: EASE,
                         }}
                       >
@@ -127,7 +127,7 @@ export function Hero() {
               className="mt-7 max-w-xl text-pretty text-[1.02rem] leading-relaxed text-[var(--body)] md:text-[1.08rem]"
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.95, duration: 0.7, ease: EASE }}
+              transition={{ delay: 0.34, duration: 0.6, ease: EASE }}
             >
               {personal.lede}
             </motion.p>
@@ -137,7 +137,7 @@ export function Hero() {
               className="mt-9 flex flex-wrap items-center gap-3.5"
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.1, duration: 0.7, ease: EASE }}
+              transition={{ delay: 0.44, duration: 0.6, ease: EASE }}
             >
               <Magnetic strength={0.28}>
                 <a href="#projects" className="btn btn--primary" data-cursor="view">
@@ -159,7 +159,7 @@ export function Hero() {
               className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-3 text-[0.85rem]"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 1.25, duration: 0.7 }}
+              transition={{ delay: 0.54, duration: 0.6 }}
             >
               <li>
                 <a href={`mailto:${personal.email}`} className="group flex items-center gap-2 text-[var(--muted)] transition-colors hover:text-[var(--accent)]">
@@ -185,7 +185,7 @@ export function Hero() {
             className="order-1 flex justify-center md:order-2 md:justify-end"
             initial={{ opacity: 0, scale: 0.88 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.3, duration: 1, ease: EASE }}
+            transition={{ delay: 0.06, duration: 0.8, ease: EASE }}
           >
             <Portrait />
           </motion.div>
@@ -196,7 +196,7 @@ export function Hero() {
           className="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--line)] md:mt-20 lg:grid-cols-4"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.35, duration: 0.8, ease: EASE }}
+          transition={{ delay: 0.62, duration: 0.7, ease: EASE }}
         >
           {stats.map((s) => (
             <li key={s.label} className="group relative bg-[var(--bg)] p-5 transition-colors duration-300 hover:bg-[var(--surface)] md:p-6">
@@ -222,7 +222,7 @@ export function Hero() {
         className="absolute bottom-5 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-[var(--muted)] transition-colors hover:text-[var(--accent)] lg:flex"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.7 }}
+        transition={{ delay: 0.9 }}
         style={{ opacity }}
       >
         <span className="eyebrow !text-[0.62rem]">Scroll</span>
