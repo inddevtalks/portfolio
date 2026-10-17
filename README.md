@@ -3,10 +3,14 @@
 Animated single-page portfolio. React + Vite + Tailwind on the front,
 a real FastAPI + SQLite backend behind the contact form.
 
-**Live:** https://peter-kumar-react.vercel.app
+**Live:** https://peter-kumar.vercel.app
 
-> Your original static portfolio is untouched in `../portfolio/` and still
-> live at https://peter-kumar.vercel.app. This is a separate build.
+**Source:** https://github.com/inddevtalks/portfolio
+
+The Vercel project `peter-kumar` is connected to the GitHub repo, so
+**every push to `main` deploys automatically** — no CLI needed.
+
+> Your original static portfolio is untouched in `../portfolio/`.
 
 ## Layout
 
@@ -198,26 +202,39 @@ Reusable pieces live in `src/components/primitives/` (`Reveal`,
 
 ## Deploying
 
-**Already live:** https://peter-kumar-react.vercel.app
+**Live:** https://peter-kumar.vercel.app — connected to
+https://github.com/inddevtalks/portfolio
 
-Redeploy after any change:
+The normal workflow is just:
+
+```bash
+git add -A
+git commit -m "your change"
+git push
+```
+
+Vercel builds and deploys to production from `main`. This is wired up and
+verified — an empty commit triggered a real deployment.
+
+To deploy without touching git:
 
 ```bash
 npx vercel deploy --prod --yes
 ```
 
-> ⚠️ **If a new deployment suddenly returns 404 to visitors, check
-> Deployment Protection.** Vercel enables `ssoProtection:
-> all_except_custom_domains` on new projects under this team, which puts
-> the `*.vercel.app` URL behind a Vercel login wall. This happened on first
-> deploy — it was 404 for anonymous visitors while looking perfectly fine
-> when logged in. Fix:
+> ⚠️ **If a deployment suddenly returns 404 to visitors, check Deployment
+> Protection.** Vercel enables `ssoProtection: all_except_custom_domains`
+> on new projects under this team, which puts the `*.vercel.app` URL behind
+> a Vercel login wall. This happened on first deploy — it looked fine while
+> logged in, which is what makes it sneaky. Fix:
 >
 > ```bash
-> npx vercel project protection disable peter-kumar-react --sso
+> npx vercel project protection disable peter-kumar --sso
 > ```
 >
 > You then need to **redeploy** for it to take effect.
+>
+> The current `peter-kumar` project already has it off (`ssoProtection: null`).
 
 **Contact form on Vercel:** there is no Python runtime there, so the form
 detects the missing API and falls back to a `mailto:` link rather than

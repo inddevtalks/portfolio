@@ -56,9 +56,14 @@ export function Hero() {
       </div>
 
       <motion.div style={{ y, opacity, scale, filter: blur }} className="wrap">
-        <div className="grid items-center gap-12 lg:grid-cols-[1.08fr_.92fr] lg:gap-8">
+        {/* Two columns from 768px up, not 1024px. Between those widths
+            (small laptops, landscape tablets — a very common recruiter
+            window) the stacked layout put the portrait first and pushed
+            the headline below the fold, so the first thing on screen was
+            a photo with no context. */}
+        <div className="grid items-center gap-12 md:grid-cols-[1.05fr_.95fr] md:gap-8">
           {/* ══════════ copy ══════════ */}
-          <div className="order-2 lg:order-1">
+          <div className="order-2 md:order-1">
             {/* availability */}
             <motion.div
               className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-[var(--accent-line)] bg-[var(--accent-soft)] px-4 py-1.5"
@@ -177,7 +182,7 @@ export function Hero() {
 
           {/* ══════════ portrait ══════════ */}
           <motion.div
-            className="order-1 flex justify-center lg:order-2 lg:justify-end"
+            className="order-1 flex justify-center md:order-2 md:justify-end"
             initial={{ opacity: 0, scale: 0.88 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.3, duration: 1, ease: EASE }}
@@ -255,7 +260,7 @@ function Portrait() {
       ref={wrapRef}
       onPointerMove={onMove}
       onPointerLeave={reset}
-      className="relative w-full max-w-[240px] sm:max-w-[300px] lg:max-w-[400px] [perspective:1200px]"
+      className="relative w-full max-w-[240px] sm:max-w-[290px] md:max-w-[330px] xl:max-w-[400px] [perspective:1200px]"
     >
       {/* orbiting dashed ring */}
       <div
