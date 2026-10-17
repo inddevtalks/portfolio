@@ -1,0 +1,457 @@
+{
+  "personal": {
+    "name": "Peter Kumar",
+    "roles": [
+      "Cyber Security Analyst",
+      "Python Developer",
+      "AI & Automation Specialist",
+      "Security Researcher"
+    ],
+    "tagline": "Cyber Security Analyst · Python Developer · AI Practitioner",
+    "lede": "I work where offensive security, backend engineering and AI tooling meet — probing systems for weakness, building the automation that moves data reliably at scale, and turning repetitive manual work into tools that run themselves.",
+    "location": "Patiala, Punjab — India",
+    "email": "peter.devtalks@gmail.com",
+    "phone": "+91 77430 45210",
+    "phoneAlt": "+91 79869 34560",
+    "github": "https://github.com/inddevtalks",
+    "linkedin": "https://www.linkedin.com/in/peter-kumar-8a76ba1b3/",
+    "portfolio": "https://peter-kumar.vercel.app",
+    "openTo": "Cybersecurity analyst, Python developer, AI/automation and full-stack roles — including remote and contract work."
+  },
+
+  "stats": [
+    { "value": 7, "suffix": "", "label": "Years coding" },
+    { "value": 20, "suffix": "+", "label": "Projects delivered" },
+    { "value": 5000, "suffix": "+", "label": "Records extracted" },
+    { "value": 5, "suffix": "", "label": "Live web apps" }
+  ],
+
+  "marquee": [
+    "Python", "Selenium", "Nmap", "VAPT", "Scrapy", "Beautiful Soup", "FastAPI",
+    "TypeScript", "Next.js", "Tailwind CSS", "Pandas", "REST APIs", "DevSecOps",
+    "Prompt Engineering", "Agentic AI"
+  ],
+
+  "about": {
+    "paragraphs": [
+      "I'm a cyber security analyst and Python developer based in Patiala, India. My work sits where **offensive security** meets **data engineering** and **AI tooling** — probing systems for weakness, then building the tools that move data reliably at scale.",
+      "Most recently I worked as a **Cyber DevSecOps Engineer** at AWASAF Pvt. Ltd., supporting **vulnerability assessment and penetration testing** engagements and working alongside research and reporting teams to identify, document and clearly communicate security findings.",
+      "I've delivered **20+ scraping and automation projects** for business clients — extracting over **5,000 structured records** to agreed schemas and deadlines — and built production web applications in Next.js, TypeScript and Tailwind, including a multi-tenant SaaS admin console running on Vercel.",
+      "I'm an active **AI practitioner**: I work daily with ChatGPT, Claude, Gemini and Perplexity, build structured **prompt-engineering workflows**, and delegate real coding work to **agentic tools** like Codex and OpenCode."
+    ],
+    "glance": [
+      { "k": "Discipline", "v": "Cyber security, data engineering & AI" },
+      { "k": "Primary language", "v": "Python" },
+      { "k": "Security scope", "v": "VAPT, Nmap, vulnerability research" },
+      { "k": "Most recent", "v": "Cyber DevSecOps, AWASAF" },
+      { "k": "AI usage", "v": "Prompt engineering · agentic workflows" },
+      { "k": "Status", "v": "Open to new roles" },
+      { "k": "Languages", "v": "English — fluent" },
+      { "k": "Location", "v": "Patiala, Punjab, India" }
+    ]
+  },
+
+  "strengths": {
+    "intro": "The way I work matters as much as the code I ship. These are the habits that clients and teams actually notice.",
+    "items": [
+      {
+        "icon": "Flame",
+        "title": "Never Lose Hope",
+        "text": "When a task looks impossible I don't fold. I break it down, change approach and keep going until it's genuinely finished."
+      },
+      {
+        "icon": "Infinity",
+        "title": "Never Say No to Learning",
+        "text": "A new language, a tool I've never opened, a problem outside my comfort zone — that's an opportunity, never a reason to stop."
+      },
+      {
+        "icon": "Rocket",
+        "title": "Eager to Learn & Catch Up",
+        "text": "I close skill gaps on my own and fast. I don't wait for someone to teach me or hand me a roadmap."
+      },
+      {
+        "icon": "Zap",
+        "title": "Initiative Taker",
+        "text": "I don't wait to be assigned. I see the problem early, tell people, and start working on it before it becomes a fire."
+      },
+      {
+        "icon": "Target",
+        "title": "Strategy Builder",
+        "text": "I turn vague goals into a clear plan — milestones, owners, deadlines and a definition of done everyone agrees on."
+      },
+      {
+        "icon": "Compass",
+        "title": "Self-Taught & Self-Driven",
+        "text": "A full year of teacher-less training at NavGurukul taught me how to learn alone, stay motivated and finish what I start."
+      },
+      {
+        "icon": "Users",
+        "title": "Team Leader",
+        "text": "I've led contributors on live client projects — assigning work, unblocking people and keeping everyone shipping together."
+      },
+      {
+        "icon": "Timer",
+        "title": "Deadline Focused",
+        "text": "20+ client projects delivered against agreed dates. Reliability is the least flashy skill and the one clients remember."
+      },
+      {
+        "icon": "Crosshair",
+        "title": "Detail Obsessed",
+        "text": "5,000+ records validated against a client schema. In data and in security, accuracy is the entire job."
+      },
+      {
+        "icon": "ShieldCheck",
+        "title": "Calm Under Pressure",
+        "text": "Live security findings, tight audit windows, client deadlines — I stay steady and keep the quality high."
+      },
+      {
+        "icon": "Eye",
+        "title": "Honest & Transparent",
+        "text": "I raise concerns early and say plainly when something won't work, instead of hiding it until the deadline."
+      },
+      {
+        "icon": "Layers",
+        "title": "Adaptable & Versatile",
+        "text": "Security, backend, frontend, AI, content and operations. I move between them instead of getting stuck in one lane."
+      }
+    ]
+  },
+
+  "skills": [
+    {
+      "icon": "Shield",
+      "title": "Cyber Security",
+      "items": ["VAPT", "Nmap", "Vulnerability Research", "Security Reporting", "DevSecOps", "Security Analytics"]
+    },
+    {
+      "icon": "Code2",
+      "title": "Languages",
+      "items": ["Python", "JavaScript", "TypeScript", "SQL", "HTML", "CSS"]
+    },
+    {
+      "icon": "Bug",
+      "title": "Scraping & Automation",
+      "items": ["Selenium", "Scrapy", "Beautiful Soup", "Requests", "PyTesseract", "Camelot"]
+    },
+    {
+      "icon": "LayoutGrid",
+      "title": "Full-Stack",
+      "items": ["Next.js", "React", "Tailwind CSS", "REST APIs", "Node.js", "FastAPI", "Flask"]
+    },
+    {
+      "icon": "Database",
+      "title": "Data",
+      "items": ["Pandas", "NumPy", "OpenPyXL", "SQLite", "JSON", "Data Cleaning", "Excel (Advanced)"]
+    },
+    {
+      "icon": "BrainCircuit",
+      "title": "AI & Agents",
+      "items": ["Prompt Engineering", "Agentic AI", "ChatGPT", "Claude", "Gemini", "Codex", "OpenCode"]
+    },
+    {
+      "icon": "Terminal",
+      "title": "Operations & Tools",
+      "items": ["Git", "Server Management", "Linux", "Project Management", "Team Leadership", "Technical Reporting"]
+    },
+    {
+      "icon": "Megaphone",
+      "title": "Business & Content",
+      "items": ["Social Media Strategy", "Content Planning", "Market Research", "Reporting", "Client Communication"]
+    }
+  ],
+
+  "experience": [
+    {
+      "date": "Oct 2025 — Apr 2026",
+      "title": "Cyber Security Analyst",
+      "org": "AWASAF Pvt. Ltd. · Cyber DevSecOps Engineer",
+      "points": [
+        "Support vulnerability assessment and penetration testing (VAPT) engagements as a Cyber DevSecOps Engineer.",
+        "Work alongside the research team on vulnerability assessment and vulnerability research.",
+        "Partner with the reporting team to produce clear, client-facing assessment reports.",
+        "Apply Nmap, vulnerability research and analytics to identify, triage and document security findings."
+      ]
+    },
+    {
+      "date": "2019 — 2025",
+      "title": "Python Developer",
+      "org": "Backend & Product Engineering",
+      "points": [
+        "Strong hands-on Python development experience building backend products and REST APIs.",
+        "Worked with a backend team to build and ship a product end to end.",
+        "Managed a team on live projects, coordinating delivery across contributors."
+      ]
+    },
+    {
+      "date": "2021 — 2024",
+      "title": "Python Developer — Web Scraping & Automation",
+      "org": "Soft Smart Solutions · BASIS Clothing · HR Codes (Contract)",
+      "points": [
+        "Delivered 20+ scraping and automation projects, extracting 5,000+ structured data entries against agreed schemas and deadlines.",
+        "Built scrapers with Python, Selenium, Scrapy, Beautiful Soup and Requests — handling pagination, JavaScript-rendered pages and anti-bot behaviour.",
+        "Cleaned, de-duplicated and normalized records with Pandas, delivering validated output as Excel and JSON.",
+        "Extracted structured tables from PDFs and images using Camelot and PyTesseract OCR pipelines."
+      ]
+    },
+    {
+      "date": "2021 — 2022",
+      "title": "Account Manager",
+      "org": "BASIS Clothing Pvt. Ltd.",
+      "points": [
+        "Automated high-volume spreadsheet workflows in Python, Pandas and Selenium, replacing manual data handling.",
+        "Handled client requirements directly and translated them into working automation."
+      ]
+    }
+  ],
+
+  "projectFilters": ["All", "Web Apps", "Security Tools"],
+
+  "projects": [
+    {
+      "title": "NGO CORE Platform Admin",
+      "category": "Web Apps",
+      "badge": "Live",
+      "desc": "Operator console for a multi-tenant SaaS platform — tenant onboarding, billing, compliance monitoring and an append-only audit trail, behind a superadmin auth layer and a REST API.",
+      "stack": ["Next.js", "TypeScript", "Tailwind CSS", "REST API", "Vercel"],
+      "live": "https://ngo-core-admin.vercel.app",
+      "source": "https://github.com/inddevtalks/ngo-core-admin",
+      "featured": true
+    },
+    {
+      "title": "lotus_marine ERP",
+      "category": "Web Apps",
+      "badge": "Live",
+      "desc": "Full ERP web application built for lotus_marine — managing core business records and day-to-day operations in one browser-based system.",
+      "stack": ["JavaScript", "Web", "Vercel"],
+      "live": "https://lotus-marine.vercel.app",
+      "source": "https://github.com/inddevtalks/lotus_marine",
+      "featured": true
+    },
+    {
+      "title": "GoldenWire",
+      "category": "Web Apps",
+      "badge": "Live",
+      "desc": "A video post-production web platform for GoldenWire — built to support the team's editing and delivery workflow in the browser.",
+      "stack": ["JavaScript", "Web", "Vercel"],
+      "live": "https://golden-wire.vercel.app",
+      "source": "https://github.com/inddevtalks/GoldenWire",
+      "featured": true
+    },
+    {
+      "title": "NGOCORE Virtual Office",
+      "category": "Web Apps",
+      "badge": "Live",
+      "desc": "The NGOCORE virtual office — a Python-built web platform giving the organisation a shared online workplace for its team and members.",
+      "stack": ["Python", "Web", "Vercel"],
+      "live": "https://ngocore-office.vercel.app",
+      "source": "https://github.com/inddevtalks/ngocore_office",
+      "featured": true
+    },
+    {
+      "title": "HHK Website",
+      "category": "Web Apps",
+      "badge": "Live",
+      "desc": "Public-facing website developed and maintained for HHK — built, deployed and kept running in production.",
+      "stack": ["JavaScript", "Web", "Vercel"],
+      "live": "https://hhk-website.vercel.app",
+      "source": "https://github.com/inddevtalks/hhk_website",
+      "featured": false
+    },
+    {
+      "title": "SubDomainFinder",
+      "category": "Security Tools",
+      "badge": "Open Source",
+      "desc": "Python subdomain enumeration tool with Light and Deep scan modes for discovering live subdomains — built for asset discovery and attack-surface reconnaissance.",
+      "stack": ["Python", "Recon", "CLI"],
+      "source": "https://github.com/inddevtalks/SubDomainFinder",
+      "featured": true
+    }
+  ],
+
+  "roles": {
+    "intro": "I'm not only a developer. Here's the full range of what I take ownership of — including non-engineering roles — and exactly how I work in each one.",
+    "items": [
+      {
+        "icon": "Megaphone",
+        "title": "Social Media Management & Strategy",
+        "subtitle": "Planning → design → shoot → edit → publish → analyse",
+        "willDo": [
+          "Plan your content — themes, pillars and a full posting calendar",
+          "Design the posts — graphics, creatives, carousels and reel covers",
+          "Build a weekly schedule your team can actually follow",
+          "Shoot the content after your approval, on-site or with remote guidance",
+          "Edit videos and images — cuts, captions, colour and thumbnails",
+          "Publish on time across every platform"
+        ],
+        "advanced": [
+          "Extract every comment automatically with our own tool",
+          "Analyse comments — sentiment, real questions, complaints and emerging trends",
+          "Follower analysis — who they are, when they engage and who actually converts",
+          "Trend guidance — what to post now, before the topic saturates",
+          "Trend keyword guidance to push reach and discovery"
+        ],
+        "tags": ["Strategy", "Content", "Design", "Analytics"]
+      },
+      {
+        "icon": "TrendingUp",
+        "title": "Business Management & Strategy",
+        "subtitle": "Understand the market, set the goal, execute, measure",
+        "willDo": [
+          "Study your business model, market and competitors properly",
+          "Set goals, KPIs and a realistic growth roadmap",
+          "Break the strategy into weekly and monthly action plans",
+          "Track progress with dashboards and honest written reports",
+          "Coordinate the team so the work actually ships on schedule",
+          "Handle client and stakeholder communication professionally"
+        ],
+        "advanced": [
+          "Competitor and market data scraping for pricing and trend tracking",
+          "Automated reporting — Python scripts replace manual spreadsheet work",
+          "Live KPI dashboards built on Excel and Google Sheets",
+          "Automated lead capture, follow-ups and CRM updates",
+          "Data-driven decisions using revenue, margin and engagement numbers"
+        ],
+        "tags": ["Strategy", "Growth", "KPI", "Reporting"]
+      },
+      {
+        "icon": "Server",
+        "title": "Technical Associate — Server, Team & Security Management",
+        "subtitle": "Keep it running, keep it secure, keep the team aligned",
+        "willDo": [
+          "Install, configure and maintain servers, web services and databases",
+          "Monitor uptime, CPU, memory, disk, logs and running services",
+          "Handle deployments, backups and restore testing",
+          "Assign and track your technical team's tasks and daily progress",
+          "Apply patching, hardening, firewall and access-control basics",
+          "Troubleshoot user and server issues quickly, day or night"
+        ],
+        "advanced": [
+          "Vulnerability assessment and VAPT with Nmap, plus security reporting",
+          "Log monitoring and anomaly triage to catch issues before users do",
+          "Python automation for backups, health checks and uptime alerts",
+          "Write SOPs and runbooks so anyone can repeat the process correctly",
+          "Security audits, access reviews and incident documentation"
+        ],
+        "tags": ["Linux", "Servers", "Security", "Monitoring"]
+      },
+      {
+        "icon": "ClipboardList",
+        "title": "Program Manager",
+        "subtitle": "Goal → milestones → owners → deadlines → status",
+        "willDo": [
+          "Break large goals into milestones, tasks, owners and deadlines",
+          "Set up and maintain the project tracker everyone trusts",
+          "Coordinate developers, designers, clients and vendors",
+          "Run daily standups and weekly status updates that stay useful",
+          "Track risks, blockers and dependencies before they bite",
+          "Report progress with real numbers, not vague updates"
+        ],
+        "advanced": [
+          "Program-level dashboards with automated progress tracking",
+          "Python scripts for status reports, reminders and deadline alerts",
+          "A live risk register with mitigation owners and target dates",
+          "Full agile ceremonies — sprint planning, reviews and retrospectives",
+          "Post-project analysis with documented lessons learned"
+        ],
+        "tags": ["Planning", "Coordination", "Agile", "Reporting"]
+      },
+      {
+        "icon": "Headset",
+        "title": "Technical Assistant",
+        "subtitle": "Support, onboarding, documentation, first-line fixes",
+        "willDo": [
+          "First-line user support — resolve tickets and common issues fast",
+          "Onboard users: accounts, devices, software and access setup",
+          "Document every issue and its fix in a proper knowledge base",
+          "Assist the team with testing and clear, reproducible bug reports",
+          "Coordinate calls, schedules and technical requirements",
+          "Keep hardware and software inventory with setup records"
+        ],
+        "advanced": [
+          "Build internal automation tools in Python to remove manual work",
+          "Write SOPs, user guides and onboarding documentation",
+          "Deploy AI assistants and chatbots for repetitive queries",
+          "Run first-pass security awareness checks for new users",
+          "Track ticket trends and push for permanent fixes, not repeat patches"
+        ],
+        "tags": ["Support", "Onboarding", "Docs", "Automation"]
+      }
+    ]
+  },
+
+  "ai": {
+    "intro": "I use AI as part of the actual work, not as a party trick. These are the tools I run on daily and the specific job I give each one.",
+    "tools": [
+      { "name": "ChatGPT", "category": "Daily driver", "use": "Drafting, debugging, code review and explaining unfamiliar code fast." },
+      { "name": "Claude", "category": "Long context", "use": "Reading large codebases and long docs, then reasoning step-by-step through hard bugs and design decisions." },
+      { "name": "Gemini", "category": "Workspace", "use": "Google Docs, Sheets and Drive workflows, research and multimodal input." },
+      { "name": "Perplexity", "category": "Research", "use": "Fast sourced research with live citations when accuracy actually matters." },
+      { "name": "Blackbox AI", "category": "In-editor", "use": "Quick code generation, completion and refactoring without leaving the editor." },
+      { "name": "Red Hat", "category": "Infrastructure", "use": "Linux, hardening and enterprise tooling knowledge for server and infra work." },
+      { "name": "PentestGPT", "category": "Security", "use": "AI-assisted recon, attack-surface thinking and first drafts of assessment reports." },
+      { "name": "Hacker AI", "category": "Security", "use": "CTF practice, exploit concepts and security research support." }
+    ],
+    "promptEngineering": {
+      "title": "Prompt Engineering",
+      "claim": "I'm good at it — and I treat it as engineering, not guessing.",
+      "items": [
+        "Write precise, role-scoped prompts with explicit context, constraints and a defined output format",
+        "Chain prompts into repeatable workflows instead of one-off questions",
+        "Force structured output — JSON, tables, checklists — that pipes straight into code",
+        "Iterate and self-critique to strip vague or hallucinated answers out",
+        "Build domain-tuned prompt sets for scraping rules, pentest checklists and client reports",
+        "Document and version my prompt templates so others on the team reuse them too"
+      ]
+    },
+    "agentic": {
+      "title": "Agentic AI",
+      "claim": "I delegate real work to agents — then verify every result before it lands.",
+      "items": [
+        { "name": "Codex", "use": "Scoped coding tasks end to end. I review the diff and run the tests before it ships." },
+        { "name": "OpenCode", "use": "Agentic terminal workflow — plan, edit, run and verify across an entire repository." },
+        { "name": "Antigravity", "use": "Agent-first IDE flow where the agent plans, builds and iterates directly in the editor." }
+      ]
+    }
+  },
+
+  "recommendations": [
+    {
+      "name": "Anum Yusuf",
+      "date": "September 2024",
+      "initials": "AY",
+      "tone": "a",
+      "text": "Peter delivered a web scraping, SQL, and machine learning project on time and fully to specification. He showed excellent technical depth in scraping — efficient extraction and processing across multiple sources — and built the SQL data layer in a clean, well-structured way that showed real command of data handling and query optimization. The machine learning component was particularly strong: well-chosen models, rigorous evaluation, and results presented with clear analysis. The work was consistently of high quality, reflecting dedication and close attention to detail, and I am very satisfied with the outcome."
+    },
+    {
+      "name": "Manoj Pokhrael",
+      "date": "September 2024",
+      "initials": "MP",
+      "tone": "b",
+      "text": "I have been consistently impressed by the way Peter runs a project. Communication is genuinely open — he listens closely to what is actually being asked and raises concerns clearly and early, which keeps everything on track. Meeting deadlines has been a real strength, and his availability for discussion makes the whole process run smoothly. It has been a pleasure working together, and I look forward to our continued collaboration."
+    }
+  ],
+
+  "education": [
+    {
+      "title": "Software Engineering Program",
+      "meta": "NavGurukul Foundation, Dharamshala, Himachal Pradesh · 2019 — 2020",
+      "text": "A one-year intensive, teacher-less program in Python, web scraping and data handling, run by an IIT Delhi alumnus and entrepreneurs for academically bright underprivileged students — building strong independent learning and problem-solving ability."
+    },
+    {
+      "title": "Secondary Education",
+      "meta": "CBSE Class 10 · Karan Public School, Meerut · 2019",
+      "text": "Scored 73%."
+    }
+  ],
+
+  "certifications": {
+    "meta": "Python & Web Scraping",
+    "items": ["Great Learning", "Simplilearn", "GirlScript", "Coursera"]
+  },
+
+  "leadership": [
+    "Mobilization Process Coordinator, NavGurukul — interviewed and guided students across India.",
+    "Maintenance & Hygiene Coordinator, NavGurukul.",
+    "Community Volunteer, HHK — supported Aadhaar and PAN documentation and insurance scheme applications."
+  ]
+}

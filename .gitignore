@@ -1,0 +1,29 @@
+node_modules
+dist
+dist-ssr
+*.local
+
+# python
+__pycache__
+*.py[cod]
+*.db
+*.sqlite3
+.venv
+venv
+.env
+
+# editors / os
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+Thumbs.db
+*.log
+
+.vercel
+
+# temp folder created by scripts/check-richtext.mjs
+.richtext-check-*/
+
+# vercel local project link (machine-specific)
+.vercel

@@ -1,0 +1,783 @@
+/* ═══════════════════════════════════════════════════════════════
+   Peter Kumar — Portfolio
+   Design tokens · theming · custom animation keyframes
+
+   Tailwind v4 handles layout/spacing/typography. Everything that
+   needs bespoke motion or a runtime-swappable colour lives here.
+   ═══════════════════════════════════════════════════════════════ */
+
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --radius-xl2: 1.25rem;
+}
+
+/* ─────────────────────── colour tokens ───────────────────────
+   .dark is applied to <html> by the inline script in index.html,
+   before first paint, so there is never a flash of the wrong theme. */
+
+:root,
+.dark {
+  --bg: #070a14;
+  --bg-2: #0b1020;
+  --surface: rgb(255 255 255 / 0.045);
+  --surface-2: rgb(255 255 255 / 0.07);
+  --surface-solid: #10162a;
+  --line: rgb(255 255 255 / 0.09);
+  --line-2: rgb(255 255 255 / 0.14);
+
+  --text: #eef1f8;
+  --body: #c3cadd;
+  --muted: #8a93ad;
+
+  --accent: #5b8cff;
+  --accent-2: #22d3ee;
+  --accent-3: #a855f7;
+  --accent-soft: rgb(91 140 255 / 0.14);
+  --accent-line: rgb(91 140 255 / 0.36);
+  --accent-glow: rgb(91 140 255 / 0.42);
+
+  --shadow-sm: 0 2px 10px rgb(0 0 0 / 0.35);
+  --shadow: 0 18px 44px -14px rgb(0 0 0 / 0.62);
+  --shadow-lg: 0 34px 80px -20px rgb(0 0 0 / 0.75);
+
+  --blob-1: #5b8cff;
+  --blob-2: #a855f7;
+  --blob-3: #22d3ee;
+  --mesh-opacity: 0.5;
+  --grain-opacity: 0.032;
+  color-scheme: dark;
+}
+
+.light {
+  --bg: #f6f8fc;
+  --bg-2: #eef2fa;
+  --surface: rgb(255 255 255 / 0.78);
+  --surface-2: rgb(255 255 255 / 0.94);
+  --surface-solid: #ffffff;
+  --line: rgb(15 23 42 / 0.1);
+  --line-2: rgb(15 23 42 / 0.16);
+
+  --text: #10182b;
+  --body: #3c465c;
+  --muted: #67718a;
+
+  --accent: #2563eb;
+  --accent-2: #0891b2;
+  --accent-3: #7c3aed;
+  --accent-soft: rgb(37 99 235 / 0.09);
+  --accent-line: rgb(37 99 235 / 0.28);
+  --accent-glow: rgb(37 99 235 / 0.28);
+
+  --shadow-sm: 0 2px 10px rgb(15 23 42 / 0.06);
+  --shadow: 0 18px 44px -16px rgb(15 23 42 / 0.18);
+  --shadow-lg: 0 34px 80px -24px rgb(15 23 42 / 0.24);
+
+  --blob-1: #2563eb;
+  --blob-2: #7c3aed;
+  --blob-3: #0891b2;
+  --mesh-opacity: 0.34;
+  --grain-opacity: 0.02;
+  color-scheme: light;
+}
+
+/* ═══════════════════════ base ═══════════════════════ */
+
+@layer base {
+  * {
+    border-color: var(--line);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--body);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+  }
+
+  /* Lenis drives scrolling; these stop the native smooth-scroll from
+     fighting it and let anchors land correctly under the fixed nav. */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-stopped {
+    overflow: clip;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: var(--text);
+    letter-spacing: -0.028em;
+    font-weight: 800;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* thin themed scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-2) transparent;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--line-2);
+    border-radius: 99px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+    background-clip: content-box;
+  }
+
+  /* hide the native cursor only where we draw our own */
+  @media (hover: hover) and (pointer: fine) {
+    body.has-custom-cursor,
+    body.has-custom-cursor a,
+    body.has-custom-cursor button,
+    body.has-custom-cursor [role='button'] {
+      cursor: none;
+    }
+  }
+}
+
+/* ═══════════════════════ components ═══════════════════════ */
+
+@layer components {
+  .wrap {
+    width: 100%;
+    max-width: 1180px;
+    margin-inline: auto;
+    padding-inline: 22px;
+  }
+
+  /* ── surfaces ── */
+  .glass {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(150%);
+  }
+
+  .glass-strong {
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    backdrop-filter: blur(26px) saturate(160%);
+    -webkit-backdrop-filter: blur(26px) saturate(160%);
+  }
+
+  /* Floating badges that sit ON TOP of the portrait photo need a far more
+     opaque base than plain glass, otherwise they wash out against a
+     bright background and the label becomes unreadable. */
+  .glass-badge {
+    background: color-mix(in srgb, var(--surface-solid) 82%, transparent);
+    border: 1px solid var(--line-2);
+    backdrop-filter: blur(20px) saturate(170%);
+    -webkit-backdrop-filter: blur(20px) saturate(170%);
+  }
+
+  .card-base {
+    position: relative;
+    border-radius: var(--radius-xl2);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* ── text ── */
+  .grad-text {
+    background: linear-gradient(100deg, var(--accent), var(--accent-2) 45%, var(--accent-3));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .text-glow {
+    text-shadow: 0 0 34px var(--accent-glow);
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  /* ── buttons ── */
+  .btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 13px 24px;
+    border-radius: 13px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    cursor: pointer;
+    overflow: hidden;
+    isolation: isolate;
+    transition:
+      transform 0.3s var(--ease-out-quint),
+      box-shadow 0.3s var(--ease-out-quint),
+      border-color 0.3s,
+      color 0.3s;
+  }
+  .btn svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .btn--primary {
+    color: #fff;
+    background: linear-gradient(120deg, var(--accent), var(--accent-3));
+    box-shadow: 0 10px 30px -8px var(--accent-glow);
+  }
+  .btn--primary:hover {
+    box-shadow: 0 16px 42px -8px var(--accent-glow);
+  }
+
+  .btn--ghost {
+    color: var(--text);
+    background: var(--surface-2);
+    border: 1px solid var(--line-2);
+  }
+  .btn--ghost:hover {
+    border-color: var(--accent-line);
+    color: var(--accent);
+  }
+
+  /* sheen that sweeps across on hover */
+  .btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+      100deg,
+      transparent 20%,
+      rgb(255 255 255 / 0.22) 50%,
+      transparent 80%
+    );
+    transform: translateX(-120%);
+    transition: transform 0.7s var(--ease-out-quint);
+  }
+  .btn:hover::after {
+    transform: translateX(120%);
+  }
+
+  /* ── chips / pills ── */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 11px;
+    border-radius: 9px;
+    border: 1px solid var(--line);
+    background: var(--surface-2);
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--muted);
+    white-space: nowrap;
+    transition:
+      color 0.22s,
+      border-color 0.22s,
+      background 0.22s,
+      transform 0.22s var(--ease-out-quint);
+  }
+  .chip:hover {
+    color: var(--accent);
+    border-color: var(--accent-line);
+    background: var(--accent-soft);
+    transform: translateY(-2px);
+  }
+
+  .tag {
+    padding: 4px 10px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: var(--surface-2);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .tag--live {
+    color: var(--accent);
+    border-color: var(--accent-line);
+    background: var(--accent-soft);
+  }
+
+  /* ── section heading ── */
+  .sec-num {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+    padding: 4px 10px;
+    border-radius: 8px;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-line);
+  }
+
+  /* ── animated gradient mesh backdrop ──
+     The blobs are already radial-gradients fading to transparent, so they
+     are intrinsically soft. An extra `filter: blur(90px)` across three
+     ~46vw elements re-rasterised a huge blurred surface on every frame of
+     the drift animation — by far the most expensive thing on the page.
+     40px keeps the same look for a fraction of the cost. */
+  .mesh {
+    position: absolute;
+    inset: -20%;
+    filter: blur(40px);
+    opacity: var(--mesh-opacity);
+    pointer-events: none;
+  }
+  .mesh span {
+    position: absolute;
+    border-radius: 50%;
+    mix-blend-mode: screen;
+    will-change: transform;
+  }
+  .light .mesh span {
+    mix-blend-mode: multiply;
+    opacity: 0.5;
+  }
+  .mesh span:nth-child(1) {
+    width: 46vw;
+    height: 46vw;
+    top: 4%;
+    left: 6%;
+    background: radial-gradient(circle, var(--blob-1), transparent 68%);
+    animation: drift-a 26s var(--ease-out-quint) infinite alternate;
+  }
+  .mesh span:nth-child(2) {
+    width: 40vw;
+    height: 40vw;
+    top: 26%;
+    right: 2%;
+    background: radial-gradient(circle, var(--blob-2), transparent 68%);
+    animation: drift-b 31s var(--ease-out-quint) infinite alternate;
+  }
+  .mesh span:nth-child(3) {
+    width: 38vw;
+    height: 38vw;
+    bottom: 2%;
+    left: 32%;
+    background: radial-gradient(circle, var(--blob-3), transparent 68%);
+    animation: drift-c 24s var(--ease-out-quint) infinite alternate;
+  }
+
+  /* fine film grain over everything */
+  .grain {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: var(--grain-opacity);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* cursor-following border highlight; --mx/--my set by JS */
+  .spotlight {
+    position: relative;
+  }
+  .spotlight::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      300px circle at var(--mx, 50%) var(--my, 50%),
+      rgb(91 140 255 / 0.13),
+      rgb(34 211 238 / 0.07) 45%,
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.35s;
+    pointer-events: none;
+  }
+  .spotlight:hover::before {
+    opacity: 1;
+  }
+
+  .spot-border::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(140deg, var(--accent), var(--accent-2), transparent 62%);
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.4s;
+    pointer-events: none;
+  }
+  .spot-border:hover::after {
+    opacity: 1;
+  }
+
+  /* ── misc ── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--line-2), transparent);
+  }
+
+  .mono {
+    font-family: var(--font-mono);
+  }
+
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    transition: background-size 0.4s var(--ease-out-quint);
+  }
+  .link-underline:hover {
+    background-size: 100% 1px;
+  }
+
+  .field {
+    width: 100%;
+    padding: 13px 15px;
+    border-radius: 12px;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    color: var(--text);
+    font-size: 0.92rem;
+    font-family: inherit;
+    transition:
+      border-color 0.25s,
+      background 0.25s,
+      box-shadow 0.25s;
+  }
+  .field::placeholder {
+    color: var(--muted);
+    opacity: 0.72;
+  }
+  .field:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: var(--surface);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+  }
+}
+
+/* ═══════════════════════ keyframes ═══════════════════════ */
+
+@keyframes drift-a {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(9vw, 7vh, 0) scale(1.18);
+  }
+}
+@keyframes drift-b {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1.1);
+  }
+  100% {
+    transform: translate3d(-11vw, 9vh, 0) scale(0.92);
+  }
+}
+@keyframes drift-c {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.95);
+  }
+  100% {
+    transform: translate3d(7vw, -8vh, 0) scale(1.15);
+  }
+}
+
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-13px);
+  }
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 var(--accent-glow);
+  }
+  70% {
+    box-shadow: 0 0 0 12px transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+@keyframes marquee-x {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes gradient-pan {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes blink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  50%,
+  95% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes grid-move {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 54px 54px;
+  }
+}
+
+@keyframes sheen {
+  0% {
+    transform: translateX(-130%) skewX(-18deg);
+  }
+  100% {
+    transform: translateX(230%) skewX(-18deg);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pop-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes orbit {
+  from {
+    transform: rotate(0deg) translateX(var(--orbit-r)) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translateX(var(--orbit-r)) rotate(-360deg);
+  }
+}
+
+/* ═══════════════════════ utilities ═══════════════════════ */
+
+@layer utilities {
+  .animate-float {
+    animation: float-y 6s ease-in-out infinite;
+  }
+  .animate-float-slow {
+    animation: float-y 9s ease-in-out infinite;
+  }
+  .animate-spin-slow {
+    animation: spin-slow 26s linear infinite;
+  }
+  .animate-spin-slower {
+    animation: spin-slow 44s linear infinite;
+  }
+  .animate-pulse-ring {
+    animation: pulse-ring 2.4s var(--ease-out-quint) infinite;
+  }
+  .animate-marquee {
+    animation: marquee-x linear infinite;
+    animation-duration: 38s;
+  }
+  .animate-marquee-rev {
+    animation: marquee-x linear infinite reverse;
+    animation-duration: 46s;
+  }
+  .animate-gradient {
+    background-size: 220% 220%;
+    animation: gradient-pan 7s ease infinite;
+  }
+  .animate-blink {
+    animation: blink 1.05s step-end infinite;
+  }
+  .animate-grid {
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 54px 54px;
+    animation: grid-move 14s linear infinite;
+  }
+  .animate-sheen {
+    animation: sheen 2.6s var(--ease-out-quint) infinite;
+  }
+  .animate-rise {
+    animation: rise 0.7s var(--ease-out-quint) both;
+  }
+  .animate-pop {
+    animation: pop-in 0.5s var(--ease-spring) both;
+  }
+
+  .pause-hover:hover {
+    animation-play-state: paused;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* ═══════════════════ low-power / small screens ═══════════════════
+   backdrop-filter forces the compositor to re-read and blur the pixels
+   behind every element. With ~40 cards on the page that is the second
+   biggest cost after the mesh, and phones can least afford it. Each card
+   already sits on a translucent background, so dropping the blur barely
+   changes how it looks while removing a large amount of GPU work. */
+
+@media (max-width: 768px), (pointer: coarse) {
+  .glass,
+  .glass-strong,
+  .glass-badge,
+  .card-base {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  /* compensate for losing the blur by making the surfaces more opaque */
+  .card-base,
+  .glass {
+    background: color-mix(in srgb, var(--surface-solid) 60%, transparent);
+  }
+  .glass-badge {
+    background: color-mix(in srgb, var(--surface-solid) 92%, transparent);
+  }
+
+  .mesh {
+    filter: blur(28px);
+    opacity: calc(var(--mesh-opacity) * 0.8);
+  }
+
+  /* the film grain is a full-screen fixed overlay; not worth compositing */
+  .grain {
+    display: none;
+  }
+}
+
+/* ═══════════════════════ reduced motion ═══════════════════════
+   Everything decorative stops. Framer Motion animations are disabled
+   separately in App.jsx via <MotionConfig reducedMotion="user">. */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .mesh {
+    display: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}

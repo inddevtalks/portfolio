@@ -1,0 +1,14 @@
+# The FastAPI backend lives OUTSIDE this folder, at ../portfolio-backend.
+#
+# It has to. Vercel auto-scans the project root and detects any Python app
+# as a second "service" (FastAPI), then refuses to honour the top-level
+# build settings because it can no longer tell which service owns them.
+# Keeping the API in its own directory makes this a plain static deploy.
+#
+# The contact form detects the missing API and falls back to mailto: —
+# see src/components/Contact.jsx and src/lib/api.js.
+
+# Vercel builds from source — no need to upload these
+node_modules/
+dist/
+README.md
