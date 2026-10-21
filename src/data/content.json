@@ -162,9 +162,11 @@
 
   "experience": [
     {
-      "date": "Oct 2025 — Apr 2026",
-      "title": "Cyber Security Analyst",
-      "org": "AWASAF Pvt. Ltd. · Cyber DevSecOps Engineer",
+      "date": "Nov 2025 — Mar 2026",
+      "title": "Cyber DevSecOps Engineer",
+      "org": "AWASAF Pvt. Ltd. · Vulnerability Assessment & Penetration Testing",
+      "file": "/documents/awasaf-experience-letter.pdf",
+      "fileLabel": "Experience letter",
       "points": [
         "Support vulnerability assessment and penetration testing (VAPT) engagements as a Cyber DevSecOps Engineer.",
         "Work alongside the research team on vulnerability assessment and vulnerability research.",
@@ -428,6 +430,15 @@
       "initials": "MP",
       "tone": "b",
       "text": "I have been consistently impressed by the way Peter runs a project. Communication is genuinely open — he listens closely to what is actually being asked and raises concerns clearly and early, which keeps everything on track. Meeting deadlines has been a real strength, and his availability for discussion makes the whole process run smoothly. It has been a pleasure working together, and I look forward to our continued collaboration."
+    },
+    {
+      "name": "Vishal Kapil",
+      "date": "October 2026",
+      "initials": "VK",
+      "tone": "a",
+      "text": "Peter has been assisting me with content and social media-related work for my page, particularly with content planning, preparation, research, and keeping up with relevant current events and trends. I have found him to be sincere, dependable, proactive, and easy to work with. He understands instructions well, contributes useful ideas, and is always willing to put in the effort to get the work done properly. I would be happy to recommend him to anyone looking for a responsible and capable person for content or social media-related work.",
+      "file": "/documents/observation-deck-letter.pdf",
+      "fileLabel": "Signed letter of recommendation"
     }
   ],
 
@@ -445,8 +456,26 @@
   ],
 
   "certifications": {
-    "meta": "Python & Web Scraping",
-    "items": ["Great Learning", "Simplilearn", "GirlScript", "Coursera"]
+    "meta": "Verified — each entry opens the original document.",
+    "items": [
+      {
+        "title": "Introduction to Generative AI",
+        "issuer": "Google Cloud · Coursera",
+        "date": "31 July 2025",
+        "note": "An online non-credit course authorised by Google Cloud and offered through Coursera.",
+        "file": "/documents/coursera-genai-certificate.pdf",
+        "verify": "https://coursera.org/verify/ZRLB7FM29WK2"
+      },
+      {
+        "title": "Cyber Security Internship",
+        "issuer": "CyberTegh",
+        "date": "2 Jun — 17 Jul 2026",
+        "note": "Covers cybersecurity training sessions, practical assignments, vulnerability assessment and live VAPT project work.",
+        "file": "/documents/cybertegh-internship-letter.jpg",
+        "verify": null
+      }
+    ],
+    "platforms": ["Great Learning", "Simplilearn", "GirlScript", "Coursera"]
   },
 
   "leadership": [

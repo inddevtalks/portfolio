@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { motion, useScroll, useSpring, useTransform } from 'framer-motion'
+import { FileText } from 'lucide-react'
 import { Stagger, StaggerItem } from './primitives/motion'
 import { Section, SectionHeading } from './primitives/SectionHeading'
 import { GlowCard } from './primitives/Card'
@@ -49,7 +50,7 @@ export function Experience() {
   )
 }
 
-function JobCard({ date, title, org, points, glow }) {
+function JobCard({ date, title, org, points, file, fileLabel, glow }) {
   return (
     <div className="group relative">
       {/* timeline node */}
@@ -91,6 +92,20 @@ function JobCard({ date, title, org, points, glow }) {
             </motion.li>
           ))}
         </ul>
+
+        {file && (
+          <div className="mt-5 border-t border-[var(--line)] pt-4">
+            <a
+              href={file}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group/link inline-flex items-center gap-1.5 text-[0.8rem] font-semibold text-[var(--accent)]"
+            >
+              <FileText className="h-3.5 w-3.5 transition-transform duration-300 group-hover/link:scale-110" />
+              {fileLabel}
+            </a>
+          </div>
+        )}
       </GlowCard>
     </div>
   )

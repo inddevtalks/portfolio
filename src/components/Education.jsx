@@ -1,4 +1,4 @@
-import { GraduationCap, Award, HeartHandshake } from 'lucide-react'
+import { GraduationCap, Award, HeartHandshake, FileText, BadgeCheck } from 'lucide-react'
 import { Section, SectionHeading } from './primitives/SectionHeading'
 import { GlowCard } from './primitives/Card'
 import { Stagger, StaggerItem } from './primitives/motion'
@@ -33,11 +33,52 @@ export function Education() {
               </span>
               <h3 className="text-[1.02rem]">Certifications</h3>
             </div>
-            <p className="mb-3.5 text-[0.83rem] font-medium text-[var(--accent)]">
+            <p className="mb-4 text-[0.83rem] font-medium text-[var(--accent)]">
               {content.certifications.meta}
             </p>
-            <ul className="flex flex-wrap gap-1.5">
+
+            <ul className="space-y-3">
               {content.certifications.items.map((c) => (
+                <li
+                  key={c.title}
+                  className="rounded-xl border border-[var(--line)] bg-[var(--surface-2)] p-4"
+                >
+                  <b className="block text-[0.93rem] text-[var(--text)]">{c.title}</b>
+                  <span className="mono mt-1 block text-[0.7rem] text-[var(--muted)]">
+                    {c.issuer} · {c.date}
+                  </span>
+                  <p className="mt-2 text-[0.82rem] leading-relaxed text-[var(--muted)]">
+                    {c.note}
+                  </p>
+
+                  <div className="mt-3 flex flex-wrap gap-4">
+                    <a
+                      href={c.file}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group/link flex items-center gap-1.5 text-[0.8rem] font-semibold text-[var(--accent)]"
+                    >
+                      <FileText className="h-3.5 w-3.5 transition-transform duration-300 group-hover/link:scale-110" />
+                      View document
+                    </a>
+                    {c.verify && (
+                      <a
+                        href={c.verify}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group/link flex items-center gap-1.5 text-[0.8rem] font-semibold text-[var(--muted)] transition-colors hover:text-[var(--accent)]"
+                      >
+                        <BadgeCheck className="h-3.5 w-3.5" />
+                        Verify
+                      </a>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ul>
+
+            <ul className="mt-4 flex flex-wrap gap-1.5 border-t border-[var(--line)] pt-4">
+              {content.certifications.platforms.map((c) => (
                 <li key={c} className="chip">
                   {c}
                 </li>

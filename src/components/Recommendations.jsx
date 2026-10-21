@@ -1,4 +1,4 @@
-import { Quote } from 'lucide-react'
+import { Quote, FileText } from 'lucide-react'
 import { Section, SectionHeading } from './primitives/SectionHeading'
 import { GlowCard } from './primitives/Card'
 import { Stagger, StaggerItem } from './primitives/motion'
@@ -9,7 +9,7 @@ export function Recommendations() {
     <Section id="recommendations">
       <SectionHeading num="08" title="Professional Recommendations" />
 
-      <Stagger stagger={0.12} className="grid gap-5 lg:grid-cols-2">
+      <Stagger stagger={0.12} className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
         {content.recommendations.map((r) => (
           <StaggerItem key={r.name} className="h-full">
             <figure className="card-base spotlight spot-border group relative flex h-full flex-col overflow-hidden p-7">
@@ -42,6 +42,18 @@ export function Recommendations() {
                   </span>
                 </span>
               </figcaption>
+
+              {r.file && (
+                <a
+                  href={r.file}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group/doc mt-4 inline-flex items-center gap-1.5 self-start text-[0.78rem] font-semibold text-[var(--accent)]"
+                >
+                  <FileText className="h-3.5 w-3.5 transition-transform duration-300 group-hover/doc:scale-110" />
+                  {r.fileLabel}
+                </a>
+              )}
             </figure>
           </StaggerItem>
         ))}
