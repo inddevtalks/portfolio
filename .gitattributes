@@ -1,0 +1,16 @@
+# Force binary handling for document and image assets.
+#
+# The repo has core.autocrlf=true (set by Git for Windows). Git can classify
+# a PDF as text if the heuristic doesn't find enough NUL bytes early on, and
+# then silently rewrites every LF to CRLF. For a PDF that is fatal: the xref
+# byte offsets no longer point at the right places and the file fails to open.
+# Marking these explicitly means no line-ending conversion is ever applied,
+# regardless of the local autocrlf setting.
+
+*.pdf   binary
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.webp  binary
+*.gif   binary
+*.ico   binary
