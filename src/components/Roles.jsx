@@ -18,7 +18,7 @@ export function Roles() {
 
   return (
     <Section id="roles">
-      <SectionHeading num="06" title="What I Can Do" />
+      <SectionHeading num="07" title="What I Can Do" />
 
       <p className="mb-9 max-w-2xl text-pretty text-[0.99rem] leading-relaxed text-[var(--body)]">
         {intro}

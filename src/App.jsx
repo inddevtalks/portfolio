@@ -31,6 +31,7 @@ const SECTIONS = [
   { id: 'skills', loader: () => import('./components/Skills'), h: '58vh' },
   { id: 'experience', loader: () => import('./components/Experience'), h: '84vh' },
   { id: 'projects', loader: () => import('./components/Projects'), h: '82vh' },
+  { id: 'blogs', loader: () => import('./components/Blogs'), h: '58vh' },
   { id: 'roles', loader: () => import('./components/Roles'), h: '70vh' },
   { id: 'ai', loader: () => import('./components/AI'), h: '80vh' },
   {

@@ -125,7 +125,7 @@ export function Contact() {
 
   return (
     <Section id="contact">
-      <SectionHeading num="10" title="Get in touch" />
+      <SectionHeading num="11" title="Get in touch" />
 
       <div className="grid gap-6 lg:grid-cols-[.85fr_1.15fr] lg:gap-8">
         {/* ── info ── */}

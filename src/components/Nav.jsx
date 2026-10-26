@@ -11,6 +11,7 @@ const LINKS = [
   { id: 'skills', label: 'Skills' },
   { id: 'experience', label: 'Experience' },
   { id: 'projects', label: 'Projects' },
+  { id: 'blogs', label: 'Blogs' },
   { id: 'roles', label: 'What I Do' },
   { id: 'ai', label: 'AI Toolkit' },
   { id: 'contact', label: 'Contact' },

@@ -250,14 +250,13 @@
       "featured": true
     },
     {
-      "title": "HHK Website",
-      "category": "Web Apps",
-      "badge": "Live",
-      "desc": "Public-facing website developed and maintained for HHK — built, deployed and kept running in production.",
-      "stack": ["JavaScript", "Web", "Vercel"],
-      "live": "https://hhk-website.vercel.app",
-      "source": "https://github.com/inddevtalks/hhk_website",
-      "featured": false
+      "title": "Cloudflare Bypass Scraper",
+      "category": "Security Tools",
+      "badge": "Open Source",
+      "desc": "Two Playwright scrapers pointed at the same Cloudflare-protected site — one is blocked on every single run, the other returns ~97 products in ~51 seconds. They differ by four lines, and that is the entire lesson.",
+      "stack": ["Python", "Playwright", "Scraping", "Bot Detection"],
+      "source": "https://github.com/inddevtalks/cloudflare-bypass",
+      "featured": true
     },
     {
       "title": "SubDomainFinder",
@@ -269,6 +268,23 @@
       "featured": true
     }
   ],
+
+  "blogs": {
+    "intro": "Longer-form write-ups where I go through a problem properly — what broke, what actually fixed it, and the reasoning behind it. Every post links to the code it describes.",
+    "items": [
+      {
+        "slug": "cloudflare-bypass",
+        "title": "Scraping a Cloudflare-protected site without tripping the bot check",
+        "excerpt": "Two Playwright scrapers for the same target. One gets blocked on every single run and returns nothing. The other works. They differ by four lines — and those four lines are the entire lesson.",
+        "date": "October 2026",
+        "readTime": "7 min read",
+        "tags": ["Python", "Playwright", "Bot Detection", "Scraping"],
+        "cover": "/blog/cloudflare-bypass/cover.jpg",
+        "demo": "/blog/cloudflare-bypass/demo.mp4",
+        "source": "https://github.com/inddevtalks/cloudflare-bypass"
+      }
+    ]
+  },
 
   "roles": {
     "intro": "I'm not only a developer. Here's the full range of what I take ownership of — including non-engineering roles — and exactly how I work in each one.",

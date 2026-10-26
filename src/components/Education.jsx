@@ -7,7 +7,7 @@ import content from '../data/content.json'
 export function Education() {
   return (
     <Section id="education" alt>
-      <SectionHeading num="09" title="Education &amp; Certifications" />
+      <SectionHeading num="10" title="Education &amp; Certifications" />
 
       <Stagger stagger={0.1} className="grid gap-4 md:grid-cols-2">
         {content.education.map((e) => (

@@ -16,7 +16,7 @@ export function AI() {
 
   return (
     <Section id="ai" alt>
-      <SectionHeading num="07" title="AI Toolkit" />
+      <SectionHeading num="08" title="AI Toolkit" />
 
       <p className="mb-9 max-w-2xl text-pretty text-[0.99rem] leading-relaxed text-[var(--body)]">
         {intro}

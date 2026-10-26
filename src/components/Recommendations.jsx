@@ -7,7 +7,7 @@ import content from '../data/content.json'
 export function Recommendations() {
   return (
     <Section id="recommendations">
-      <SectionHeading num="08" title="Professional Recommendations" />
+      <SectionHeading num="09" title="Professional Recommendations" />
 
       <Stagger stagger={0.12} className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
         {content.recommendations.map((r) => (
