@@ -31,7 +31,13 @@ export function Blogs() {
         {intro}
       </p>
 
-      <Stagger stagger={0.12} className="grid gap-5 md:grid-cols-2">
+      <Stagger
+        stagger={0.12}
+        // One post alone in a two-column grid leaves a hole beside it, so a
+        // single entry centres at a readable measure instead. Regrows to a
+        // grid automatically once there are more.
+        className={items.length === 1 ? 'mx-auto max-w-2xl' : 'grid gap-5 md:grid-cols-2'}
+      >
         {items.map((post) => (
           <StaggerItem key={post.slug} className="h-full">
             <BlogCard post={post} onOpen={() => setOpen(post)} />
