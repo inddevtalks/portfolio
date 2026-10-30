@@ -16,6 +16,8 @@ import content from '../data/content.json'
  */
 const POST_BODIES = {
   'cloudflare-bypass': () => import('../data/blogs/cloudflare-bypass.md?raw'),
+  'lead-generation': () => import('../data/blogs/lead-generation.md?raw'),
+  'findit-data': () => import('../data/blogs/findit-data.md?raw'),
 }
 
 export function Blogs() {
@@ -33,10 +35,15 @@ export function Blogs() {
 
       <Stagger
         stagger={0.12}
-        // One post alone in a two-column grid leaves a hole beside it, so a
-        // single entry centres at a readable measure instead. Regrows to a
-        // grid automatically once there are more.
-        className={items.length === 1 ? 'mx-auto max-w-2xl' : 'grid gap-5 md:grid-cols-2'}
+        // One post alone in a grid leaves a hole beside it, so a single entry
+        // centres at a readable measure instead. Two or more grow into the
+        // same md/xl grid the Recommendations section uses, which keeps an
+        // odd count balanced at both breakpoints.
+        className={
+          items.length === 1
+            ? 'mx-auto max-w-2xl'
+            : 'grid gap-5 md:grid-cols-2 xl:grid-cols-3'
+        }
       >
         {items.map((post) => (
           <StaggerItem key={post.slug} className="h-full">
