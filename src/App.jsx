@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { MotionConfig } from 'framer-motion'
 
 import Cursor from './components/Cursor'
@@ -9,7 +9,7 @@ import Marquee from './components/Marquee'
 import Footer from './components/Footer'
 import ToTop from './components/ToTop'
 
-import { useLenis } from './hooks/useLenis'
+import { useLenis, getLenis } from './hooks/useLenis'
 import content from './data/content.json'
 
 /*
@@ -48,9 +48,17 @@ const SECTIONS = [
  * renders the component. Reserves height meanwhile so arriving chunks
  * don't shove the page around under the reader.
  */
-function LazySection({ loader, minHeight }) {
+function LazySection({ id, loader, minHeight, onReady }) {
   const ref = useRef(null)
   const [Comp, setComp] = useState(null)
+
+  const take = () =>
+    loader().then((m) => {
+      setComp(() => m.default)
+      // tell App this section now occupies its real height, not the
+      // reserved one — the signal anchor re-alignment waits for
+      onReady?.()
+    })
 
   useEffect(() => {
     if (Comp) return
@@ -59,7 +67,7 @@ function LazySection({ loader, minHeight }) {
 
     // No IntersectionObserver (very old browser) — just load it.
     if (typeof IntersectionObserver === 'undefined') {
-      loader().then((m) => setComp(() => m.default))
+      take()
       return
     }
 
@@ -67,7 +75,7 @@ function LazySection({ loader, minHeight }) {
       (entries) => {
         if (!entries.some((e) => e.isIntersecting)) return
         io.disconnect()
-        loader().then((m) => setComp(() => m.default))
+        take()
       },
       // start fetching a little before it scrolls into view
       { rootMargin: '600px 0px' },
@@ -78,7 +86,18 @@ function LazySection({ loader, minHeight }) {
   }, [loader, Comp])
 
   return (
-    <div ref={ref} style={Comp ? undefined : { minHeight }}>
+    // While unloaded, this placeholder carries the section's id so nav links
+    // (#about, #blogs …) have a target to scroll to — which is also what
+    // triggers the load. Once the real section mounts it owns the id, so the
+    // placeholder hands it over rather than duplicating it.
+    <div
+      ref={ref}
+      id={Comp ? undefined : id}
+      // scroll-mt-24 matches <Section>, so a nav link lands on the placeholder
+      // at exactly the height the real section will occupy.
+      className={Comp ? undefined : 'scroll-mt-24'}
+      style={Comp ? undefined : { minHeight }}
+    >
       {Comp ? (
         <Comp />
       ) : (
@@ -101,13 +120,66 @@ export default function App() {
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual'
     }
-    if (!window.location.hash) window.scrollTo(0, 0)
+
+    const { hash } = window.location
+
+    // A blog post can be linked directly (#blog/<slug>). Blogs is a lazy
+    // section, so it has not mounted yet — bringing it into view is what
+    // fetches the chunk, and mounting it opens the article in the hash.
+    if (hash.startsWith('#blog/')) {
+      requestAnimationFrame(() => {
+        document.getElementById('blogs')?.scrollIntoView()
+      })
+      return
+    }
+
+    if (!hash) window.scrollTo(0, 0)
   }, [])
 
   // keep the tab title in sync — a small detail that reads as considered
   useEffect(() => {
     document.title = `${content.personal.name} — Cyber Security Analyst · Python Developer`
   }, [])
+
+  // Each lazy section reserves only part of the height it ends up occupying
+  // (blogs reserves 364px and takes 1009px), so sections above a nav target
+  // push it downward while Lenis is still animating toward where it used to
+  // be. Aim again once — and only once — everything up to the target is in
+  // place, because before that moment the destination is still moving.
+  const [ready, setReady] = useState(0)
+  const [hash, setHash] = useState(() => window.location.hash)
+  const aligned = useRef(null)
+
+  useEffect(() => {
+    const onHash = () => setHash(window.location.hash)
+    window.addEventListener('hashchange', onHash)
+    return () => window.removeEventListener('hashchange', onHash)
+  }, [])
+
+  useEffect(() => {
+    // a blog deep link lands the reader on the Blogs section
+    const target = hash.startsWith('#blog/') ? 'blogs' : hash.slice(1)
+    const idx = SECTIONS.findIndex((s) => s.id === target)
+    if (idx === -1) return
+    if (aligned.current === target) return
+
+    // the placeholder carries the id until it mounts, so only a real
+    // <section> means that section is at its final height
+    const isSettled = (id) => document.getElementById(id)?.tagName === 'SECTION'
+    if (!SECTIONS.slice(0, idx + 1).every((s) => isSettled(s.id))) return
+
+    const el = document.getElementById(target)
+    aligned.current = target
+    if (!el) return
+
+    // already parked where the link points — let Lenis's own anchor
+    // handling stand rather than restarting the same scroll
+    if (Math.abs(el.getBoundingClientRect().top - 88) < 60) return
+
+    const lenis = getLenis()
+    if (lenis) lenis.scrollTo(el, { offset: -88 })
+    else el.scrollIntoView()
+  }, [hash, ready])
 
   return (
     <MotionConfig reducedMotion="user">
@@ -135,7 +207,13 @@ export default function App() {
         <Marquee />
 
         {SECTIONS.map(({ id, loader, h }) => (
-          <LazySection key={id} loader={loader} minHeight={h} />
+          <LazySection
+            key={id}
+            id={id}
+            loader={loader}
+            minHeight={h}
+            onReady={() => setReady((n) => n + 1)}
+          />
         ))}
       </main>
 

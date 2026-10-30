@@ -2,6 +2,19 @@ import { useEffect } from 'react'
 import Lenis from 'lenis'
 
 /**
+ * The active Lenis instance, if any.
+ *
+ * Lenis owns the scroll position while it runs, so a raw scrollTo is
+ * unreliable. Sections load lazily and are taller than the space they
+ * reserve, which means an anchor target can move after the jump was
+ * calculated — re-aligning needs to go through the same scroll engine
+ * the rest of the page uses. Null while smooth scroll is off (the
+ * visitor asked for reduced motion), where native scrolling is correct.
+ */
+let activeLenis = null
+export const getLenis = () => activeLenis
+
+/**
  * Momentum smooth scrolling.
  *
  * Lenis animates the real scroll position (it does not hijack with
@@ -21,6 +34,8 @@ export function useLenis(enabled = true) {
       // keeps anchor links honest under smooth scroll
       anchors: { offset: -88 },
     })
+
+    activeLenis = lenis
 
     let frame = 0
     const raf = (time) => {
@@ -42,6 +57,7 @@ export function useLenis(enabled = true) {
       cancelAnimationFrame(frame)
       document.documentElement.style.scrollBehavior = prev
       if (import.meta.env.DEV && window.__lenis === lenis) delete window.__lenis
+      if (activeLenis === lenis) activeLenis = null
       lenis.destroy()
     }
   }, [enabled])

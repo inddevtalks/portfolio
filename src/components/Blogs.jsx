@@ -25,6 +25,33 @@ export function Blogs() {
 
   const { intro, items } = content.blogs
 
+  // A post can be reached directly at #blog/<slug> — shared links, bookmarks
+  // and the browser's own navigation all land on the article. Opening sets
+  // the hash and closing puts it back to #blogs, so the URL and what's on
+  // screen never disagree.
+  useEffect(() => {
+    const sync = () => {
+      const m = window.location.hash.match(/^#blog\/([\w-]+)$/)
+      if (!m) return
+      setOpen(items.find((p) => p.slug === m[1]) || null)
+    }
+    sync()
+    window.addEventListener('hashchange', sync)
+    return () => window.removeEventListener('hashchange', sync)
+  }, [items])
+
+  const openPost = (post) => {
+    setOpen(post)
+    window.history.replaceState(null, '', `#blog/${post.slug}`)
+  }
+
+  const closePost = () => {
+    setOpen(null)
+    if (window.location.hash.startsWith('#blog/')) {
+      window.history.replaceState(null, '', '#blogs')
+    }
+  }
+
   return (
     <Section id="blogs">
       <SectionHeading num="06" title="Blogs" />
@@ -47,13 +74,13 @@ export function Blogs() {
       >
         {items.map((post) => (
           <StaggerItem key={post.slug} className="h-full">
-            <BlogCard post={post} onOpen={() => setOpen(post)} />
+            <BlogCard post={post} onOpen={() => openPost(post)} />
           </StaggerItem>
         ))}
       </Stagger>
 
       <AnimatePresence>
-        {open && <Reader post={open} onClose={() => setOpen(null)} />}
+        {open && <Reader post={open} onClose={closePost} />}
       </AnimatePresence>
     </Section>
   )
