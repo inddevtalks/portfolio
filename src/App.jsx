@@ -133,13 +133,11 @@ export default function App() {
 
     const { hash } = window.location
 
-    // A blog post can be linked directly (#blog/<slug>). Blogs is a lazy
-    // section, so it has not mounted yet — bringing it into view is what
-    // fetches the chunk, and mounting it opens the article in the hash.
+    // Old shared links point at #blog/<slug> — the article used to open in
+    // an overlay here, and now lives at its own URL. Forward them so every
+    // link ever sent out keeps working. Without a hash the page starts at top.
     if (hash.startsWith('#blog/')) {
-      requestAnimationFrame(() => {
-        document.getElementById('blogs')?.scrollIntoView()
-      })
+      window.location.replace(`/blog/${hash.slice('#blog/'.length)}`)
       return
     }
 
@@ -167,8 +165,7 @@ export default function App() {
   }, [])
 
   useEffect(() => {
-    // a blog deep link lands the reader on the Blogs section
-    const target = hash.startsWith('#blog/') ? 'blogs' : hash.slice(1)
+    const target = hash.slice(1)
     const idx = SECTIONS.findIndex((s) => s.id === target)
     if (idx === -1) return
     if (aligned.current === target) return

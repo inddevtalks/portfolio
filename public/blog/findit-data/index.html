@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The directory, minus the noise — 2,501 Maltese businesses</title>
+    <meta
+      name="description"
+      content="8,769 public records from a Maltese business directory, cleaned down to 2,501 businesses. The crawl, the numbers, the real export, and what the data still gets wrong."
+    />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#f3eee4" />
+    <link rel="stylesheet" href="/blog/findit-data/assets/style.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2316120d'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='17' font-weight='700' fill='%23f3eee4' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E"
+    />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="bar">
+      <div class="bar-in">
+        <a class="brand" href="#top" aria-label="Findit field note, back to top">
+          <span class="brand-mark" aria-hidden="true">F/</span>
+          <span>findit<span class="brand-dim">.mt</span></span>
+        </a>
+
+        <nav class="bar-nav" aria-label="Sections">
+          <a href="#brief">01 Brief</a>
+          <a href="#method">02 Method</a>
+          <a href="#numbers">03 Numbers</a>
+          <a href="#demo">04 Recording</a>
+          <a href="#records">05 Records</a>
+          <a href="#limits">06 Limits</a>
+        </nav>
+
+        <div class="bar-meta">
+          <span class="dot" aria-hidden="true"></span>
+          <span>2,501 rows</span>
+          <a class="bar-cta" href="#records">Open data</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- ============================================================ hero -->
+      <section class="hero" id="top">
+        <div class="wrap hero-grid">
+          <div class="hero-copy" data-reveal>
+            <p class="kicker">Field note 03 <span>/</span> findit.com.mt <span>/</span> Malta</p>
+            <h1>The directory, <em>minus</em> the noise.</h1>
+            <p class="deck">
+              8,769 public listings from a Maltese business directory, folded into
+              2,501 businesses. Four columns — name, phone, email, website — with
+              the gaps left visible.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-ink" href="#records">Browse the records</a>
+              <a class="btn btn-line" href="#demo">Watch the walkthrough <span class="mono">0:42</span></a>
+            </div>
+            <p class="hero-foot mono">public pages · no accounts · xlsx + csv</p>
+          </div>
+
+          <aside class="ledger" data-reveal aria-label="Dataset at a glance">
+            <div class="stamp" aria-hidden="true">Scraped<br />Cleaned<br />Exported</div>
+            <p class="ledger-k">The dataset</p>
+            <dl>
+              <div>
+                <dt>Raw records</dt>
+                <dd><span data-count="8769">8,769</span></dd>
+              </div>
+              <div>
+                <dt>Businesses</dt>
+                <dd><span data-count="2501">2,501</span></dd>
+              </div>
+              <div>
+                <dt>Repeats folded</dt>
+                <dd><span data-count="6268">6,268</span></dd>
+              </div>
+              <div>
+                <dt>With a phone</dt>
+                <dd><span data-count="95.8" data-dec="1">95.8</span><small>%</small></dd>
+              </div>
+            </dl>
+            <p class="ledger-src">findit.com.mt/en/directory</p>
+          </aside>
+        </div>
+      </section>
+
+      <!-- =========================================================== brief -->
+      <section class="sec" id="brief">
+        <div class="wrap sec-grid">
+          <header class="sec-head" data-reveal>
+            <p class="sec-num mono">01</p>
+            <h2>The brief</h2>
+            <p class="sec-note">An island, a directory,<br />and no export button.</p>
+          </header>
+
+          <div class="sec-body prose" data-reveal>
+            <p class="drop">
+              Findit.com.mt is one of those directories that has everything and
+              exports nothing. Every plumber, dentist, hotel and lawyer in Malta
+              is a public page. None of it leaves the browser in a form a
+              spreadsheet can use.
+            </p>
+
+            <p>
+              The job was not clever. Walk the category tree, open every profile,
+              read the four fields the site actually publishes — name, phone,
+              email, website — and put them in one file. The interesting part is
+              what survives the cleanup.
+            </p>
+
+            <aside class="margin-note">
+              <b>What was kept</b>
+              name · phone · email · website. Nothing else. No categories, no
+              opening hours, no reviews, no coordinates. If the directory doesn't
+              publish it as text, it doesn't exist here.
+            </aside>
+
+            <p>
+              The crawl is plain HTTP. <strong>requests</strong> holds the
+              session, <strong>BeautifulSoup</strong> reads the HTML, and a
+              one-second pause sits between pages. No browser automation, no
+              stealth plugin, no proxy pool — the directory serves its listings
+              as ordinary pages, and the whole thing runs from a terminal.
+            </p>
+
+            <p>
+              The first pass returned <strong>8,769 rows</strong>. That is not
+              8,769 businesses. The same clinic appears under three categories, a
+              restaurant lists two numbers, a shop is spelled two ways. Exact
+              duplicates, then a case-insensitive name pass, fold the file down
+              to <strong>2,501 businesses</strong>. Every number below is what is
+              left after that.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================== method -->
+      <section class="sec" id="method">
+        <div class="wrap">
+          <header class="sec-head wide" data-reveal>
+            <p class="sec-num mono">02</p>
+            <h2>The method</h2>
+            <p class="sec-lede">
+              Four moves, repeated a few thousand times. The scripts are short;
+              the patience is the feature.
+            </p>
+          </header>
+
+          <ol class="steps">
+            <li data-reveal>
+              <span class="step-n">01</span>
+              <h3>Walk the tree</h3>
+              <p>
+                Start from the site's own category index. Collect every listing
+                page once, cache the URLs, and resume from a text file instead of
+                starting over.
+              </p>
+              <p class="step-meta mono">2,348 directory pages</p>
+            </li>
+            <li data-reveal>
+              <span class="step-n">02</span>
+              <h3>Read the cards</h3>
+              <p>
+                Each category page is a grid of business cards. Pull the profile
+                links out of it and ignore everything that points off-site.
+              </p>
+              <p class="step-meta mono">1 request / second</p>
+            </li>
+            <li data-reveal>
+              <span class="step-n">03</span>
+              <h3>Open the profile</h3>
+              <p>
+                The name lives in <code>h2.title</code>, the email in
+                <code>a.email</code>, the phone in <code>p.phone</code>. A bare
+                try/except per field means one broken page costs a cell, not the
+                run.
+              </p>
+              <p class="step-meta mono">4 fields per page</p>
+            </li>
+            <li data-reveal>
+              <span class="step-n">04</span>
+              <h3>Collapse and export</h3>
+              <p>
+                Drop exact duplicates, fold case-variant names, merge the extra
+                phones and emails, then write an xlsx for review and a csv for
+                import.
+              </p>
+              <p class="step-meta mono">8,769 → 2,501</p>
+            </li>
+          </ol>
+
+          <p class="code-label mono" data-reveal>The profile parser — findit.py, excerpt</p>
+          <pre class="code" data-reveal><code><span class="c"># every value is optional; a missing field never stops the page</span>
+row   = soup.select_one(<span class="s">"div.row.row-listfull div.content"</span>)
+name  = soup.find(<span class="s">"h2"</span>, class_=<span class="s">"title"</span>).get_text(strip=<span class="k">True</span>)
+email = soup.find(<span class="s">"a"</span>, class_=<span class="s">"email"</span>)
+phone = soup.find(<span class="s">"p"</span>, class_=<span class="s">"phone"</span>)
+
+data[<span class="s">"name"</span>]  = name
+data[<span class="s">"email"</span>] = email.get_text(strip=<span class="k">True</span>) <span class="k">if</span> email <span class="k">else</span> <span class="k">None</span>
+data[<span class="s">"phone"</span>] = phone.get_text(<span class="s">" "</span>, strip=<span class="k">True</span>) <span class="k">if</span> phone <span class="k">else</span> <span class="k">None</span>
+
+<span class="k">if</span> data[<span class="s">"phone"</span>] <span class="k">and</span> <span class="k">not</span> re.search(<span class="s">r"\d"</span>, data[<span class="s">"phone"</span>]):
+    data[<span class="s">"phone"</span>] = <span class="k">None</span></code></pre>
+        </div>
+      </section>
+
+      <!-- ========================================================= numbers -->
+      <section class="band" id="numbers">
+        <div class="wrap">
+          <p class="kicker" data-reveal>03 <span>/</span> The numbers</p>
+          <h2 class="band-h" data-reveal>Eight thousand rows go in. Two and a half thousand businesses come out.</h2>
+
+          <div class="band-stats" data-reveal>
+            <div>
+              <b><span data-count="8769">8,769</span></b>
+              <span>raw records</span>
+            </div>
+            <div class="band-arrow" aria-hidden="true">→</div>
+            <div>
+              <b><span data-count="2501">2,501</span></b>
+              <span>businesses</span>
+            </div>
+            <div>
+              <b>−71.5%</b>
+              <span>repeats folded</span>
+            </div>
+          </div>
+
+          <div class="band-cols">
+            <div data-reveal>
+              <p class="band-k">Contact coverage · 2,501 businesses</p>
+              <dl class="meters">
+                <div class="meter-row">
+                  <dt>Email</dt>
+                  <div class="meter-track"><div class="meter-fill" data-pct="84.0"></div></div>
+                  <dd>84.0<small>%</small> <small>· 2,102</small></dd>
+                </div>
+                <div class="meter-row">
+                  <dt>Phone</dt>
+                  <div class="meter-track"><div class="meter-fill" data-pct="95.8"></div></div>
+                  <dd>95.8<small>%</small> <small>· 2,397</small></dd>
+                </div>
+                <div class="meter-row">
+                  <dt>Website</dt>
+                  <div class="meter-track"><div class="meter-fill" data-pct="70.1"></div></div>
+                  <dd>70.1<small>%</small> <small>· 1,753</small></dd>
+                </div>
+                <div class="meter-row">
+                  <dt>Email + phone</dt>
+                  <div class="meter-track"><div class="meter-fill" data-pct="81.3"></div></div>
+                  <dd>81.3<small>%</small> <small>· 2,034</small></dd>
+                </div>
+                <div class="meter-row">
+                  <dt>All three</dt>
+                  <div class="meter-track"><div class="meter-fill" data-pct="60.5"></div></div>
+                  <dd>60.5<small>%</small> <small>· 1,514</small></dd>
+                </div>
+              </dl>
+            </div>
+
+            <div data-reveal>
+              <p class="band-k">Where the email lives · 2,102 addresses</p>
+              <div class="domains">
+                <div class="domain-row">
+                  <span>gmail.com</span>
+                  <div class="domain-track"><div class="domain-fill" data-pct="100"></div></div>
+                  <b>673</b>
+                </div>
+                <div class="domain-row">
+                  <span>hotmail.com</span>
+                  <div class="domain-track"><div class="domain-fill" data-pct="17.2"></div></div>
+                  <b>116</b>
+                </div>
+                <div class="domain-row">
+                  <span>gov.mt</span>
+                  <div class="domain-track"><div class="domain-fill" data-pct="11.4"></div></div>
+                  <b>77</b>
+                </div>
+                <div class="domain-row">
+                  <span>onvol.net</span>
+                  <div class="domain-track"><div class="domain-fill" data-pct="9.2"></div></div>
+                  <b>62</b>
+                </div>
+                <div class="domain-row">
+                  <span>yahoo.com</span>
+                  <div class="domain-track"><div class="domain-fill" data-pct="8.6"></div></div>
+                  <b>58</b>
+                </div>
+              </div>
+              <p class="domain-note">
+                891 free-mail addresses · 1,211 on their own domain
+              </p>
+            </div>
+          </div>
+
+          <div class="band-foot">
+            <p data-reveal><b>538</b> businesses list a Facebook page where a website should be — 30.7% of the 1,753 with a link.</p>
+            <p data-reveal><b>875</b> businesses publish more than one phone number. The extra digits stay in the export.</p>
+            <p data-reveal><b>748</b> have no website, <b>104</b> no phone, <b>399</b> no email. Those gaps are in the file too.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================ demo -->
+      <section class="sec" id="demo">
+        <div class="wrap">
+          <header class="sec-head wide" data-reveal>
+            <p class="sec-num mono">04</p>
+            <h2>The recording</h2>
+            <p class="sec-lede">
+              A dataset is only useful if you can find a row. This is the viewer
+              running on the real export, not a mock-up.
+            </p>
+          </header>
+
+          <figure class="film" data-reveal>
+            <div class="film-top mono">
+              <span>The walkthrough</span>
+              <span>Real export · no staged rows</span>
+            </div>
+            <video
+              id="demoVideo"
+              controls
+              preload="none"
+              playsinline
+              width="1280"
+              height="800"
+              poster="/blog/findit-data/cover.jpg"
+            >
+              <source src="/blog/findit-data/demo.mp4" type="video/mp4" />
+              Your browser can't play this video.
+              <a href="/blog/findit-data/demo.mp4">Download it instead</a>.
+            </video>
+            <figcaption>
+              <span>
+                <b>What happens:</b> the list is filtered to restaurants, narrowed
+                to contacts that have both an email and a phone, then reset to the
+                full 2,501 and scrolled. One continuous take, silent.
+              </span>
+              <span class="mono">
+                2,501 rows<br />
+                1,753 websites<br />
+                0 mock records
+              </span>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- ========================================================= records -->
+      <section class="sec records" id="records">
+        <div class="wrap">
+          <header class="sec-head wide" data-reveal>
+            <p class="sec-num mono">05</p>
+            <h2>The records</h2>
+            <p class="sec-lede">
+              This is the export itself: 2,501 rows, one per business. Search it,
+              filter it, sort it, take it with you. The values are exactly what
+              the directory published.
+            </p>
+          </header>
+
+          <div class="rec-bar" data-reveal>
+            <label class="rec-search" for="recSearch">
+              <span class="mono">Search</span>
+              <input
+                id="recSearch"
+                type="search"
+                placeholder="name, email or domain…"
+                autocomplete="off"
+                spellcheck="false"
+              />
+            </label>
+
+            <div class="chips" role="group" aria-label="Filter records">
+              <button class="chip" type="button" data-filter="email" aria-pressed="false">Has email</button>
+              <button class="chip" type="button" data-filter="phone" aria-pressed="false">Has phone</button>
+              <button class="chip" type="button" data-filter="web" aria-pressed="false">Has website</button>
+            </div>
+
+            <label class="rec-sort" for="recSort">
+              <span class="mono">Sort</span>
+              <select id="recSort">
+                <option value="name">A → Z</option>
+                <option value="name-desc">Z → A</option>
+                <option value="complete">Most complete</option>
+                <option value="phones">Most numbers</option>
+              </select>
+            </label>
+
+            <button id="recCsv" class="btn btn-line btn-small" type="button">Export CSV</button>
+          </div>
+
+          <div class="rec-meta" aria-live="polite">
+            <span id="recCount">Loading the export…</span>
+            <span>Phones as published — free text</span>
+          </div>
+
+          <div class="table-wrap">
+            <table class="rec-table">
+              <caption class="sr-only">
+                Businesses from the Findit.com.mt export. Search, filter and sort
+                the table, or export the current selection to CSV.
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Business</th>
+                  <th scope="col">Phone</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Website</th>
+                </tr>
+              </thead>
+              <tbody id="recBody"></tbody>
+            </table>
+          </div>
+
+          <noscript>
+            <p class="rec-empty">
+              The interactive table needs JavaScript.
+              <a href="/blog/findit-data/assets/data/records.json">Open the raw records instead</a>.
+            </p>
+          </noscript>
+
+          <button id="recMore" class="rec-more" type="button" hidden>Show 25 more</button>
+        </div>
+      </section>
+
+      <!-- ========================================================== limits -->
+      <section class="sec" id="limits">
+        <div class="wrap">
+          <header class="sec-head wide" data-reveal>
+            <p class="sec-num mono">06</p>
+            <h2>The fine print</h2>
+            <p class="sec-lede">
+              A clean export is not a perfect one. These are the rough edges,
+              left visible on purpose.
+            </p>
+          </header>
+
+          <div class="limits-grid">
+            <article class="limit" data-reveal>
+              <p class="mono">01 — Phones</p>
+              <h3>Free text, not numbers</h3>
+              <p>
+                The directory writes a phone number the way a human would: two
+                lines, a contact name, sometimes an extension. 875 businesses
+                carry more than one number. They were kept, not flattened.
+              </p>
+            </article>
+
+            <article class="limit" data-reveal>
+              <p class="mono">02 — Websites</p>
+              <h3>A Facebook page is not a domain</h3>
+              <p>
+                538 of the 1,753 links point at Facebook. Handy for outreach, no
+                use for a domain check. Read the website column as "a web
+                presence", not "a website".
+              </p>
+            </article>
+
+            <article class="limit" data-reveal>
+              <p class="mono">03 — Scope</p>
+              <h3>Four columns, on purpose</h3>
+              <p>
+                No categories, hours, reviews or coordinates. The source shows
+                those as page furniture, not as exportable fields. Guessing them
+                would be worse than leaving them out.
+              </p>
+            </article>
+
+            <article class="limit" data-reveal>
+              <p class="mono">04 — Conduct</p>
+              <h3>Public, but still someone's data</h3>
+              <p>
+                Every row came from a public page. The export is for research and
+                outreach, not resale — and if a business asks to be removed,
+                remove it. One request a second is the whole etiquette.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================== author -->
+      <section class="author">
+        <div class="wrap author-grid" data-reveal>
+          <div class="author-photo">
+            <img
+              src="/blog/findit-data/assets/img/author.jpeg"
+              alt="Peter Kumar"
+              width="352"
+              height="470"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div>
+            <p class="role mono">Field note 03 · author</p>
+            <h2>Peter Kumar</h2>
+            <p>
+              I build extraction pipelines for messy public sources and keep the
+              parts that survive contact with real data. This one is a Maltese
+              business directory, four fields and 2,501 rows — including the
+              rows that are still a little wrong.
+            </p>
+          </div>
+          <aside class="author-note">
+            <b>Built with</b>
+            Python<br />
+            requests · BeautifulSoup<br />
+            pandas<br />
+            one second between pages
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <div class="wrap foot-in">
+        <p>Field note 03 — findit.com.mt · 2026</p>
+        <p>Not affiliated with Findit · data from public pages</p>
+        <p><a href="#top">Back to top ↑</a></p>
+      </div>
+    </footer>
+
+    <script src="/blog/findit-data/assets/app.js" defer></script>
+  </body>
+</html>

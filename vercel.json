@@ -6,6 +6,9 @@
   "outputDirectory": "dist",
   "cleanUrls": true,
   "trailingSlash": false,
+  "rewrites": [
+    { "source": "/blog/:slug", "destination": "/blog/:slug/index.html" }
+  ],
   "headers": [
     {
       "source": "/assets/(.*)",
