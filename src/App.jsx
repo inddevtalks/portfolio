@@ -44,6 +44,16 @@ const SECTIONS = [
 ]
 
 /**
+ * Where a settled anchor target comes to rest, in px from the viewport top.
+ *
+ * Lenis subtracts the target's own scroll-margin (scroll-mt-24 = 96px) and
+ * then applies the anchor offset (-88px), so a section that has stopped
+ * moving sits 184px down. Verified against a section that is already loaded
+ * rather than derived, because it is what the page actually does.
+ */
+const LANDING = 184
+
+/**
  * Loads `loader()` when the placeholder scrolls near the viewport, then
  * renders the component. Reserves height meanwhile so arriving chunks
  * don't shove the page around under the reader.
@@ -172,13 +182,31 @@ export default function App() {
     aligned.current = target
     if (!el) return
 
-    // already parked where the link points — let Lenis's own anchor
-    // handling stand rather than restarting the same scroll
-    if (Math.abs(el.getBoundingClientRect().top - 88) < 60) return
-
     const lenis = getLenis()
-    if (lenis) lenis.scrollTo(el, { offset: -88 })
-    else el.scrollIntoView()
+
+    // Aiming once is not enough. Measuring at the moment we start happens
+    // while the sections above the target are still growing — chunks
+    // finishing, images and fonts landing — so the page stretches under the
+    // scroll and we stop short. Re-aim until the target holds.
+    //
+    // Lenis treats "already heading there" as a no-op, so this costs
+    // nothing when nothing moved. Three tries max, and it stands down the
+    // instant the reader navigates elsewhere rather than yanking them back.
+    const align = (attempt) => {
+      const settle = () => {
+        if (aligned.current !== target) return
+        if (Math.abs(el.getBoundingClientRect().top - LANDING) <= 40) return
+        if (attempt < 2) setTimeout(() => align(attempt + 1), 250)
+      }
+
+      if (lenis) lenis.scrollTo(el, { offset: -88, onComplete: settle })
+      else {
+        el.scrollIntoView()
+        setTimeout(settle, 250)
+      }
+    }
+
+    align(0)
   }, [hash, ready])
 
   return (
